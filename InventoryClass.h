@@ -6,7 +6,7 @@ class Inventory
 {
 public:
 	void Add(Item itemAdd);
-
+	Item Equip(int number);
 	void Display();
 
 private:

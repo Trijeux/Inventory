@@ -7,6 +7,13 @@ void Inventory::Add(Item itemToAdd)
 	ItemsStorage.emplace_back(itemToAdd);
 }
 
+Item Inventory::Equip(int number)
+{
+	// Attention aux numéros qui marchent pas
+
+
+	return ItemsStorage[number];
+}
 
 void Inventory::Display()
 {

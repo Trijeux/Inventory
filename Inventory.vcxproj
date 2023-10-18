@@ -127,12 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="FonctionInventory.cpp" />
     <ClCompile Include="InventoryClass.cpp" />
     <ClCompile Include="ItemClass.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MapClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FonctionInventory.h" />
     <ClInclude Include="InventoryClass.h" />
     <ClInclude Include="ItemClass.h" />
     <ClInclude Include="MapClass.h" />
