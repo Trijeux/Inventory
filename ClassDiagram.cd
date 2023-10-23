@@ -1,24 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Item">
-    <Position X="6.75" Y="2.75" Width="1.5" />
+    <Position X="2.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQEAAAEAAAAAAAEAAAAAAA=</HashCode>
-      <FileName>ItemClass.h</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Item.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Map">
-    <Position X="6.75" Y="6" Width="1.5" />
+    <Position X="2.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MapClass.h</FileName>
+      <FileName>Map.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Inventory">
-    <Position X="6.75" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAABAAAAAA=</HashCode>
-      <FileName>InventoryClass.h</FileName>
+      <HashCode>ABKAgAAAAAAGAAAQAAAABQAAAAAEACCgAIAAAAAAAAA=</HashCode>
+      <FileName>Inventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bow">
+    <Position X="11.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAEIAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Bow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForcePotion">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ForcePotion.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthPotion">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HealthPotion.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Potion">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Potion.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sword">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQAEAEAAAA=</HashCode>
+      <FileName>Sword.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon">
+    <Position X="8" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAQAAAAAAAA=</HashCode>
+      <FileName>Weapon.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

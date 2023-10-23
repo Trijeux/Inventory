@@ -1,6 +1,6 @@
 #pragma once
-#include "ItemClass.h"
-#include <string>
+#include "Item.h"
+
 
 class Map : public Item
 {
