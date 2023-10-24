@@ -5,24 +5,27 @@ void main()
 {
 	bool game = true;
 	int chooseAction;
+
 	Inventory myInvent;
 	Weapon weaponEquipped = myInvent.GetWeaponInit();
 
-	std::cout << "Bonjour et bien venue sur Inventory" << std::endl;
-	std::cout << "Tu peux peux jouer avec ton Inventaire quitter et revenir quand tu veux car il y a des sauvgarde" << std::endl;
-	std::cout << "Mais les potion son sauvgader entièrment mais parcontre tout les autre objet (comme l'epee) ne sauvgarde que la dernière creer";
+	//Welcome and program information
+	std::cout << "Bonjour et bienvenu sur Inventory" << std::endl;
+	std::cout << "Tu peux jouer avec ton Inventaire, quitter et revenir quand tu veux, car il y a des sauvgardes" << std::endl;
+	std::cout << "Mais les potions sont sauvgadees entièrement, par contre tout les autres objets (l'epee, l'arc et la carte) ne sauvgarde que la dernière creer" << std::endl;
 	system("PAUSE");
 
 	do
 	{
+		//Action choice
 		system("cls");
 		std::cout << "Que veux tu faire :" << std::endl;
 		std::cout << "Creer un item (1)" << std::endl;
 		std::cout << "Equiper une arme (2)" << std::endl;
-		std::cout << "Utiliser la cart ou une Potion (3)" << std::endl;
-		std::cout << "Attaquer avec l'arme equiper (4)" << std::endl;
-		std::cout << "Afficher le contenue de l'inventaire (5)" << std::endl;
-		std::cout << "Quitter le jeux (6)" << std::endl;
+		std::cout << "Utiliser la carte ou une potion (3)" << std::endl;
+		std::cout << "Attaquer avec l'arme equipee (4)" << std::endl;
+		std::cout << "Afficher le contenu de l'inventaire (5)" << std::endl;
+		std::cout << "Quitter le jeu (6)" << std::endl;
 		std::cin >> chooseAction;
 
 		switch (chooseAction)
@@ -60,6 +63,7 @@ void main()
 			system("cls");
 			myInvent.Display(6);
 			system("PAUSE");
+				break;
 		}
 		case 6:
 		{
@@ -72,7 +76,7 @@ void main()
 		default:
 		{
 			system("cls");
-			std::cout << "Ce n'ai pas une action valide" << std::endl;
+			std::cout << "Ce n'est pas une action valide" << std::endl;
 			system("PAUSE");
 			break;
 		}

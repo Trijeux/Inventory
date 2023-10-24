@@ -5,7 +5,9 @@
 class Map : public Item
 {
 public:
+
 	Map(std::string _name) : Item(_name) {}
+
 private:
 };
 

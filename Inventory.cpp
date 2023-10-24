@@ -8,13 +8,14 @@ using json = nlohmann::json;
 
 void Inventory::Add()
 {
-	int choisePlayer;
+	int choosePlayer;
 
+	//Allow choice of item's creation for the player
 	std::cout << "Quel item voulez vous creer :" << std::endl;
 	std::cout << "Carte (1)" << std::endl << "Potion (2)" << std::endl << "Arme (3)" << std::endl;
-	std::cin >> choisePlayer;
+	std::cin >> choosePlayer;
 
-	switch (choisePlayer)
+	switch (choosePlayer)
 	{
 	case 1:
 	{
@@ -27,20 +28,23 @@ void Inventory::Add()
 
 		j["NameMap"] = nameItem;
 
+		//Save created item and erase the last one
 		std::ofstream map("Map.json");
 		map << std::setw(4) << j << std::endl;
 		map.close();
-		std::cout << "Vous avez creer " << nameItem << std::endl;
+
+		std::cout << "Vous avez cree " << nameItem << std::endl;
 		break;
 	}
 	case 2:
 	{
-		int choisePotion;
+		//Potion's creation choice
+		int choosePotion;
 		std::cout << "Quel type de potion" << std::endl;
 		std::cout << "Soin (1) ou Force (2)" << std::endl;
-		std::cin >> choisePotion;
+		std::cin >> choosePotion;
 
-		switch (choisePotion)
+		switch (choosePotion)
 		{
 		case 1:
 		{
@@ -52,7 +56,7 @@ void Inventory::Add()
 			nbPotion += 1;
 
 			HealthPotionStorage.emplace_back(itemAdd);
-			std::cout << "Vous avez creer une potion de soin";
+			std::cout << "Vous avez cree une potion de soin";
 			break;
 		}
 		case 2:
@@ -65,7 +69,7 @@ void Inventory::Add()
 			nbPotion += 1;
 
 			ForcePotionStorage.emplace_back(itemAdd);
-			std::cout << "Vous avez creer une potion de force";
+			std::cout << "Vous avez cree une potion de force";
 			break;
 		}
 		}
@@ -73,62 +77,66 @@ void Inventory::Add()
 	}
 	case 3:
 	{
-		int choiseWeapon;
-
+		//Choose which weapon to create
+		int chooseWeapon;
 		std::cout << "Quel type d'arme voulez vous creer" << std::endl;
 		std::cout << "Epee (1) ou Arc (2)" << std::endl;
-		std::cin >> choiseWeapon;
+		std::cin >> chooseWeapon;
 
-		switch (choiseWeapon)
+		switch (chooseWeapon)
 		{
 		case 1:
 		{
 			json j;
-			int dommage;
+			int damage;
 			int length;
 			std::string  nameItem = InputNameItem();
-			std::cout << "Les dommage de l'Epee" << std::endl;
-			std::cin >> dommage;
-			std::cout << "La longueur de la lame de l'Epee" << std::endl;
+			std::cout << "Les degats de l'Epee" << std::endl;
+			std::cin >> damage;
+			std::cout << "La longueur de la lame de l'Epee en CM" << std::endl;
 			std::cin >> length;
 
-			Sword itemAdd(nameItem, dommage, length);
+			Sword itemAdd(nameItem, damage, length);
 
 			SwordsStorage.emplace_back(itemAdd);
 
 			j["NameSword"] = nameItem;
-			j["DPS"] = dommage;
+			j["DPS"] = damage;
 			j["BladeLenght"] = length;
 
+			//Save created item and erase the last one
 			std::ofstream sword("Sword.json");
 			sword << std::setw(4) << j << std::endl;
 			sword.close();
-			std::cout << "Vous avez creer " << nameItem << "Avec " << dommage << "de degat et avec une lame longue de " << length;
+
+			std::cout << "Vous avez cree " << nameItem << " avec " << damage << " de degats et avec une lame longue de " << length << " CM" << std::endl;
 			break;
 		}
 		case 2:
 		{
 			json j;
-			int dommage;
+			int damage;
 			int distance;
 			std::string  nameItem = InputNameItem();
-			std::cout << "Les dommage de l'arc" << std::endl;
-			std::cin >> dommage;
-			std::cout << "La distance de Tir de l'arc" << std::endl;
+			std::cout << "Les degats de l'arc" << std::endl;
+			std::cin >> damage;
+			std::cout << "La distance de Tir de l'arc en M" << std::endl;
 			std::cin >> distance;
 
-			Bow itemAdd(nameItem, dommage, distance);
+			Bow itemAdd(nameItem, damage, distance);
 
 			BowStorage.emplace_back(itemAdd);
 
 			j["NameBow"] = nameItem;
-			j["DPS"] = dommage;
+			j["DPS"] = damage;
 			j["Distance"] = distance;
 
+			//Save created item and erase the last one
 			std::ofstream bow("Bow.json");
 			bow << std::setw(4) << j << std::endl;
 			bow.close();
-			std::cout << "Vous avez creer " << nameItem << "Avec " << dommage << "de degat et avec une distance de tir de " << distance;
+
+			std::cout << "Vous avez cree " << nameItem << " avec " << damage << " de degats et avec une distance de tir de " << distance << " M" << std::endl;
 			break;
 		}
 		}
@@ -139,49 +147,49 @@ void Inventory::Add()
 
 Weapon Inventory::Equip()
 {
-	int choise;
+	int choose;
 	int inputPlayer;
 
-	// Attention aux numéros qui marchent pas
-	std::cout << "Quel type arme voulez vous equipez : " << std::endl;
+	//Choose weapon class to create
+	std::cout << "Quel type d'arme voulez vous equiper : " << std::endl;
 	std::cout << "Epee (2)" << std::endl;
 	std::cout << "Arc (3)" << std::endl;
-	std::cin >> choise;
+	std::cin >> choose;
 
-	switch (choise)
+	switch (choose)
 	{
 
 	case 2:
 	{
-		Display(choise);
+		Display(choose);
 
 		std::cin >> inputPlayer;
 
 		Sword Epee = SwordsStorage[inputPlayer];
 
-		std::cout << "Vous avez equiper " << Epee.GetName();
+		std::cout << "Vous avez equipe " << Epee.GetName();
 
 		return SwordsStorage[inputPlayer];
 	}
 	case 3:
 	{
-		Display(choise);
+		Display(choose);
 
 		std::cin >> inputPlayer;
 
 		Bow bow = BowStorage[inputPlayer];
 
-		std::cout << "Vous avez equiper " << bow.GetName();
+		std::cout << "Vous avez equipe " << bow.GetName();
 
 		return BowStorage[inputPlayer];
 	}
 	}
 }
 
-void Inventory::Display(int choise)
+void Inventory::Display(int choose)
 {
 	int idx = 0;
-	switch (choise)
+	switch (choose)
 	{
 	case 1:
 	{
@@ -196,7 +204,7 @@ void Inventory::Display(int choise)
 	{
 		for (Sword oneItem : SwordsStorage)
 		{
-			std::cout << idx << ":" << oneItem.GetName() << " DPS :" << oneItem.GetDP() << " / Taille de la Lame :" << oneItem.GetBladeLength() << std::endl;
+			std::cout << idx << ":" << oneItem.GetName() << " DPS : " << oneItem.GetDP() << " / Taille de la Lame : " << oneItem.GetBladeLength() << std::endl;
 			idx++;
 		}
 		break;
@@ -205,7 +213,7 @@ void Inventory::Display(int choise)
 	{
 		for (Bow oneItem : BowStorage)
 		{
-			std::cout << idx << ":" << oneItem.GetName() << " DPS :" << oneItem.GetDP() << " / Distance de Tir :" << oneItem.GetDistance() << std::endl;
+			std::cout << idx << ":" << oneItem.GetName() << " DPS : " << oneItem.GetDP() << " / Distance de Tir : " << oneItem.GetDistance() << std::endl;
 			idx++;
 		}
 		break;
@@ -230,6 +238,7 @@ void Inventory::Display(int choise)
 		}
 		break;
 	}
+	//Allow a complete inventory showcase	
 	case 6:
 		std::cout << "Map" << std::endl;
 		for (Map oneItem : MapStorage)
@@ -274,28 +283,31 @@ void Inventory::Display(int choise)
 
 void Inventory::Use()
 {
-	int inputChoise;
+	//Allow player to choose what to use between map and potions
+	int inputChoose;
 	std::cout << "Que voulez vous utiliser :" << std::endl;
 	std::cout << "Carte (1)" << std::endl;
 	std::cout << "Potion de soin (2)" << std::endl;
 	std::cout << "Potion de Force (3)" << std::endl;
-	std::cin >> inputChoise;
+	std::cin >> inputChoose;
 
-	switch (inputChoise)
+	switch (inputChoose)
 	{
 	case 1:
 	{
-		int choisecard;
-		std::cout << "Quel Cart voulez vous utiliser :" << std::endl;
+		//Choice of the map to use	
+		int chooseMap;
+		std::cout << "Quel Carte voulez vous utiliser :" << std::endl;
 		Display(1);
-		std::cin >> choisecard;
-		Item myMap = GetMap(choisecard);
+		std::cin >> chooseMap;
+		Item myMap = GetMap(chooseMap);
 
 		std::cout << "Vous etes a " << myMap.GetName() << std::endl;
 		break;
 	}
 	case 2:
 	{
+		//Check if player has potion of healing
 		if (nbHealPotion > 0)
 		{
 			std::cout << "Vous vous etes Heal" << std::endl;
@@ -311,6 +323,7 @@ void Inventory::Use()
 	}
 	case 3:
 	{
+		//Check if player has potion of strength
 		if (nbForcePotion > 0)
 		{
 			std::cout << "Vous vous etes Renforcer" << std::endl;
@@ -329,14 +342,14 @@ void Inventory::Use()
 
 void Inventory::Attack(Weapon& equippedItem)
 {
-	std::cout << "Tu Attack de " << equippedItem.GetDP() << "avec " << equippedItem.GetName() << std::endl;
+	std::cout << "Tu attaque de " << equippedItem.GetDP() << " avec " << equippedItem.GetName() << std::endl;
 }
 
 void Inventory::gameInit()
 {
 	json j;
 
-	// Charger les données ----------------------------------------------------------
+	
 	std::ifstream map("Map.json");
 	j = nlohmann::json::parse(map);
 	std::string nameMap = j["NameMap"];
@@ -344,17 +357,15 @@ void Inventory::gameInit()
 	Map mapAdd(nameMap);
 	MapStorage.emplace_back(mapAdd);
 
-	// Charger les données ----------------------------------------------------------
 	std::ifstream sword("Sword.json");
 	j = nlohmann::json::parse(sword);
 	std::string nameSword = j["NameSword"];
-	int DPSword = j["DPS"];
+	int DPSSword = j["DPS"];
 	int bladeLenght = j["BladeLenght"];
 	sword.close();
-	Sword swordAdd(nameSword, DPSword, bladeLenght);
+	Sword swordAdd(nameSword, DPSSword, bladeLenght);
 	SwordsStorage.emplace_back(swordAdd);
 
-	// Charger les données ----------------------------------------------------------
 	std::ifstream bow("Bow.json");
 	j = nlohmann::json::parse(bow);
 	std::string nameBow = j["NameBow"];
@@ -364,7 +375,6 @@ void Inventory::gameInit()
 	Bow bowAdd(nameBow, DPSBow, distance);
 	BowStorage.emplace_back(bowAdd);
 
-	// Charger les données ----------------------------------------------------------
 	std::ifstream potionHeal("HealPotion.json");
 	j = nlohmann::json::parse(potionHeal);
 	int numberPotionHeal = j["NomberHealPotion"];
@@ -381,7 +391,6 @@ void Inventory::gameInit()
 		HealthPotionStorage.emplace_back(potionHealAdd);
 	}
 
-	// Charger les données ----------------------------------------------------------
 	std::ifstream potionForce("ForcePotion.json");
 	j = nlohmann::json::parse(potionForce);
 	int numberPotionForce = j["NomberForcePotion"];

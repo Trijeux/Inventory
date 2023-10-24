@@ -26,7 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="Map.json">
       <Filter>Fichiers de ressources</Filter>
     </None>
@@ -42,6 +41,7 @@
     <None Include="ForcePotion.json">
       <Filter>Fichiers de ressources</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FonctionInventory.h">

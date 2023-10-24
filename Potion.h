@@ -4,6 +4,7 @@
 class Potion : public Item
 {
 public:
+
 	Potion(std::string _name) : Item(_name) {}
 	
 private:
