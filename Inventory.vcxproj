@@ -127,20 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bow.cpp" />
     <ClCompile Include="FonctionInventory.cpp" />
-    <ClCompile Include="ForcePotion.cpp" />
-    <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="Inventory.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Potion.cpp" />
-    <ClCompile Include="Sword.cpp" />
-    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Bow.json" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ForcePotion.json" />
+    <None Include="HealPotion.json" />
+    <None Include="Map.json" />
+    <None Include="Sword.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bow.h" />

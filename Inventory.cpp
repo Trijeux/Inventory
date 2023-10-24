@@ -1,6 +1,10 @@
 #include "Inventory.h"
+#include <fstream>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include "FonctionInventory.h"
+
+using json = nlohmann::json;
 
 void Inventory::Add()
 {
@@ -14,17 +18,25 @@ void Inventory::Add()
 	{
 	case 1:
 	{
+		json j;
 		std::string nameItem = InputNameItem();
 
 		Map itemAdd(nameItem);
 
 		MapStorage.emplace_back(itemAdd);
+
+		j["NameMap"] = nameItem;
+
+		std::ofstream map("Map.json");
+		map << std::setw(4) << j << std::endl;
+		map.close();
+		std::cout << "Vous avez creer " << nameItem << std::endl;
 		break;
 	}
 	case 2:
 	{
 		int choisePotion;
-		std::cout << "Quel type de Portion" << std::endl;
+		std::cout << "Quel type de potion" << std::endl;
 		std::cout << "Soin (1) ou Force (2)" << std::endl;
 		std::cin >> choisePotion;
 
@@ -40,6 +52,7 @@ void Inventory::Add()
 			nbPotion += 1;
 
 			HealthPotionStorage.emplace_back(itemAdd);
+			std::cout << "Vous avez creer une potion de soin";
 			break;
 		}
 		case 2:
@@ -52,6 +65,7 @@ void Inventory::Add()
 			nbPotion += 1;
 
 			ForcePotionStorage.emplace_back(itemAdd);
+			std::cout << "Vous avez creer une potion de force";
 			break;
 		}
 		}
@@ -61,7 +75,7 @@ void Inventory::Add()
 	{
 		int choiseWeapon;
 
-		std::cout << "Quel type d'arme" << std::endl;
+		std::cout << "Quel type d'arme voulez vous creer" << std::endl;
 		std::cout << "Epee (1) ou Arc (2)" << std::endl;
 		std::cin >> choiseWeapon;
 
@@ -69,6 +83,7 @@ void Inventory::Add()
 		{
 		case 1:
 		{
+			json j;
 			int dommage;
 			int length;
 			std::string  nameItem = InputNameItem();
@@ -80,31 +95,46 @@ void Inventory::Add()
 			Sword itemAdd(nameItem, dommage, length);
 
 			SwordsStorage.emplace_back(itemAdd);
+
+			j["NameSword"] = nameItem;
+			j["DPS"] = dommage;
+			j["BladeLenght"] = length;
+
+			std::ofstream sword("Sword.json");
+			sword << std::setw(4) << j << std::endl;
+			sword.close();
+			std::cout << "Vous avez creer " << nameItem << "Avec " << dommage << "de degat et avec une lame longue de " << length;
 			break;
 		}
 		case 2:
 		{
+			json j;
 			int dommage;
 			int distance;
 			std::string  nameItem = InputNameItem();
-			std::cout << "Les dommage de l'Arc" << std::endl;
+			std::cout << "Les dommage de l'arc" << std::endl;
 			std::cin >> dommage;
-			std::cout << "La distance de Tir" << std::endl;
+			std::cout << "La distance de Tir de l'arc" << std::endl;
 			std::cin >> distance;
 
 			Bow itemAdd(nameItem, dommage, distance);
 
 			BowStorage.emplace_back(itemAdd);
+
+			j["NameBow"] = nameItem;
+			j["DPS"] = dommage;
+			j["Distance"] = distance;
+
+			std::ofstream bow("Bow.json");
+			bow << std::setw(4) << j << std::endl;
+			bow.close();
+			std::cout << "Vous avez creer " << nameItem << "Avec " << dommage << "de degat et avec une distance de tir de " << distance;
 			break;
 		}
 		}
 		break;
 	}
 	}
-
-
-
-
 }
 
 Weapon Inventory::Equip()
@@ -127,6 +157,10 @@ Weapon Inventory::Equip()
 
 		std::cin >> inputPlayer;
 
+		Sword Epee = SwordsStorage[inputPlayer];
+
+		std::cout << "Vous avez equiper " << Epee.GetName();
+
 		return SwordsStorage[inputPlayer];
 	}
 	case 3:
@@ -134,6 +168,10 @@ Weapon Inventory::Equip()
 		Display(choise);
 
 		std::cin >> inputPlayer;
+
+		Bow bow = BowStorage[inputPlayer];
+
+		std::cout << "Vous avez equiper " << bow.GetName();
 
 		return BowStorage[inputPlayer];
 	}
@@ -217,14 +255,14 @@ void Inventory::Display(int choise)
 		std::cout << "Nombre de Potion " << nbPotion << std::endl;
 		std::cout << std::endl;
 
-		std::cout << "Potion de Soin" << std::endl;
+		std::cout << "Potion de Soin " << nbHealPotion << std::endl;
 		for (HealthPotion oneItem : HealthPotionStorage)
 		{
 			std::cout << idx << ": " << oneItem.GetName() << std::endl;
 			idx++;
 		}
 
-		std::cout << "Potion de Force" << std::endl;
+		std::cout << "Potion de Force " << nbForcePotion << std::endl;
 		for (ForcePotion oneItem : ForcePotionStorage)
 		{
 			std::cout << idx << ": " << oneItem.GetName() << std::endl;
@@ -280,7 +318,7 @@ void Inventory::Use()
 			nbForcePotion -= 1;
 			ForcePotionStorage.erase(ForcePotionStorage.begin());
 		}
-		else if(nbForcePotion <= 0)
+		else if (nbForcePotion <= 0)
 		{
 			std::cout << "Vous n'avez plus de Potion de force";
 		}
@@ -289,7 +327,91 @@ void Inventory::Use()
 	}
 }
 
-void Inventory::attack(Weapon& equippedItem)
+void Inventory::Attack(Weapon& equippedItem)
 {
-	std::cout << "Tu attack de " << equippedItem.GetDP() << std::endl;
+	std::cout << "Tu Attack de " << equippedItem.GetDP() << "avec " << equippedItem.GetName() << std::endl;
+}
+
+void Inventory::gameInit()
+{
+	json j;
+
+	// Charger les données ----------------------------------------------------------
+	std::ifstream map("Map.json");
+	j = nlohmann::json::parse(map);
+	std::string nameMap = j["NameMap"];
+	map.close();
+	Map mapAdd(nameMap);
+	MapStorage.emplace_back(mapAdd);
+
+	// Charger les données ----------------------------------------------------------
+	std::ifstream sword("Sword.json");
+	j = nlohmann::json::parse(sword);
+	std::string nameSword = j["NameSword"];
+	int DPSword = j["DPS"];
+	int bladeLenght = j["BladeLenght"];
+	sword.close();
+	Sword swordAdd(nameSword, DPSword, bladeLenght);
+	SwordsStorage.emplace_back(swordAdd);
+
+	// Charger les données ----------------------------------------------------------
+	std::ifstream bow("Bow.json");
+	j = nlohmann::json::parse(bow);
+	std::string nameBow = j["NameBow"];
+	int DPSBow = j["DPS"];
+	int distance = j["Distance"];
+	bow.close();
+	Bow bowAdd(nameBow, DPSBow, distance);
+	BowStorage.emplace_back(bowAdd);
+
+	// Charger les données ----------------------------------------------------------
+	std::ifstream potionHeal("HealPotion.json");
+	j = nlohmann::json::parse(potionHeal);
+	int numberPotionHeal = j["NomberHealPotion"];
+	potionHeal.close();
+	for (int i = 0; i < numberPotionHeal; i++)
+	{
+		std::string  nameItem = "HealthPotion";
+
+		HealthPotion potionHealAdd(nameItem);
+
+		nbHealPotion += 1;
+		nbPotion += 1;
+
+		HealthPotionStorage.emplace_back(potionHealAdd);
+	}
+
+	// Charger les données ----------------------------------------------------------
+	std::ifstream potionForce("ForcePotion.json");
+	j = nlohmann::json::parse(potionForce);
+	int numberPotionForce = j["NomberForcePotion"];
+	potionForce.close();
+	for (int i = 0; i < numberPotionForce; i++)
+	{
+		std::string  nameItem = "ForcePotion";
+
+		ForcePotion potionForceAdd(nameItem);
+
+		nbForcePotion += 1;
+		nbPotion += 1;
+
+		ForcePotionStorage.emplace_back(potionForceAdd);
+	}
+}
+
+void Inventory::gameSavePotion()
+{
+	json j;
+
+	j["NomberHealPotion"] = nbHealPotion;
+
+	std::ofstream potionHeal("HealPotion.json");
+	potionHeal << std::setw(4) << j << std::endl;
+	potionHeal.close();
+
+	j["NomberForcePotion"] = nbForcePotion;
+
+	std::ofstream potionForce("ForcePotion.json");
+	potionForce << std::setw(4) << j << std::endl;
+	potionForce.close();
 }

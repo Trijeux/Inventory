@@ -5,17 +5,23 @@
 #include "HealthPotion.h"
 #include "Map.h"
 #include "Sword.h"
-#include "Item.h"
 
 class Inventory
 {
 public:
+	Inventory() { gameInit(); }
+	~Inventory() { gameSavePotion(); }
 	void Add();
-	Weapon Equip();
-	void Display(int choise);
-	Map GetMap(int choiseMap) { return MapStorage[choiseMap]; }
 	void Use();
-	void attack(Weapon& equippedItem);
+	Weapon Equip();
+	void Attack(Weapon& equippedItem);
+	void Display(int choise);
+
+
+	Map GetMap(int choiseMap) { return MapStorage[choiseMap]; }
+	int GetNbHealPotion() { return nbHealPotion; }
+	int GetNbForcePotion() { return nbForcePotion; }
+	Weapon GetWeaponInit() { return SwordsStorage[0]; }
 
 private:
 	std::vector<Map> MapStorage;
@@ -26,6 +32,8 @@ private:
 	int nbPotion;
 	int nbHealPotion;
 	int nbForcePotion;
+	void gameInit();
+	void gameSavePotion();
 protected:
 };
 
