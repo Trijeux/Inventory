@@ -12,7 +12,7 @@ void main()
 	//Welcome and program information
 	std::cout << "Bonjour et bienvenu sur Inventory" << std::endl;
 	std::cout << "Tu peux jouer avec ton Inventaire, quitter et revenir quand tu veux, car il y a des sauvgardes" << std::endl;
-	std::cout << "Mais les potions sont sauvgadees entièrement, par contre tout les autres objets (l'epee, l'arc et la carte) ne sauvgarde que la dernière creer" << std::endl;
+	std::cout << "Mais les potions sont sauvgadees entierement, par contre tout les autres objets (l'epee, l'arc et la carte) ne sauvgarde que la derniÃ¨re creer" << std::endl;
 	system("PAUSE");
 
 	do
